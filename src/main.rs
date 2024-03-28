@@ -2,7 +2,6 @@
 
 use std::error::Error;
 use gilrs::{Gilrs, Button, Event, Axis};
-use rppal::gpio::Gpio;
 use rppal::pwm::{Channel, Pwm};
 
 fn run_machine() -> Result<(), Box<dyn Error>>{
@@ -46,6 +45,8 @@ fn run_machine() -> Result<(), Box<dyn Error>>{
 }
 
 fn main() {
-    run_machine().expect("not working");
+    if let Err(e) = run_machine() {
+        eprintln!("Machine run failed: {}", e);
+        std::process::exit(1);
+    }
 }
-
